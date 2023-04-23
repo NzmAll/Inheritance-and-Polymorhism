@@ -7,66 +7,6 @@ using System.Threading.Tasks;
 
 namespace TaskManagement.Admin.Commands
 {
-    internal class EmailCommand
-    {
-        protected string? _email;
-
-        public virtual void Handle()
-        {
-            Console.WriteLine("Please enter the email address:");
-            _email = Console.ReadLine()!;
-
-            if (IsValid())
-            {
-                Console.WriteLine($"{GetType().Name} is valid");
-            }
-            else
-            {
-                Console.WriteLine($"{GetType().Name} is invalid");
-            }
-        }
-
-        protected virtual bool IsValid()
-        {
-            return false;
-        }
-    }
-
-    internal class RecipientCommand : EmailCommand
-    {
-        public override void Handle()
-        {
-            Console.WriteLine("Please enter the recipient:");
-            _email = Console.ReadLine()!;
-
-            base.Handle();
-        }
-
-        protected override bool IsValid()
-        {
-            string pattern = @"^[a-zA-Z0-9]{10,30}$";
-            return Regex.IsMatch(_email, pattern);
-        }
-    }
-
-    internal class SeparatorCommand : EmailCommand
-    {
-        protected override bool IsValid()
-        {
-            string pattern = @"^.+[\.\-]@.+[\.][a-z]+$";
-            return Regex.IsMatch(_email, pattern);
-        }
-    }
-
-    internal class DomainCommand : EmailCommand
-    {
-        protected override bool IsValid()
-        {
-            string pattern = @"^[a-zA-Z0-9._%+-]+@code\.edu\.az$";
-            return Regex.IsMatch(_email, pattern);
-        }
-    }
-
     internal class GetEmailCommands
     {
         public static void Handle()
